@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>Forms - Ready Bootstrap Dashboard</title>
+<meta
+	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+	name='viewport' />
+<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+<link rel="stylesheet"
+	th:href="@{https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i}">
+<link rel="stylesheet" th:href="@{/assets/css/ready.css}">
+<link rel="stylesheet" th:href="@{/assets/css/demo.css}">
+<script
+	th:src="@{https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.13/js/froala_editor.pkgd.min.js}"></script>
+<link rel="stylesheet"
+	th:href="@{https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css}">
+<link rel="stylesheet"
+	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css}">
+</head>
+<body>
+	<div class="wrapper">
+		<div class="main-header">
+			<div class="logo-header">
+				<a href="/index/admin" class="logo"> Ready Dashboard </a>
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button"
+					data-toggle="collapse" data-target="collapse"
+					aria-controls="sidebar" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<button class="topbar-toggler more">
+					<i class="la la-ellipsis-v"></i>
+				</button>
+			</div>
+			<nav class="navbar navbar-header navbar-expand-lg">
+				<div class="container-fluid">
+
+
+					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+						<li th:if="${session.isAdmintrator_Role}"
+							class="nav-item dropdown hidden-caret"><a
+							class="nav-link dropdown-toggle" href="/home" id="navbarDropdown">
+								<i class="la la-film"></i> Xem Phim
+						</a></li>
+
+
+						<li class="nav-item dropdown"><a
+							class="dropdown-toggle profile-pic" data-toggle="dropdown"
+							href="#" aria-expanded="false"> <img
+								src="/assets/img/profile.jpg" alt="user-img" width="36"
+								class="img-circle"><span th:text="${session.username}">Hizrian</span></span>
+						</a>
+							<ul class="dropdown-menu dropdown-user">
+								<li>
+									<div class="user-box">
+										<div class="u-img">
+											<img src="/assets/img/profile.jpg" alt="user">
+										</div>
+										<div class="u-text">
+											<h4 th:text="${session.username}">Hizrian</h4>
+											<p class="text-muted" th:text="${session.email}">hello@themekita.com</p>
+
+										</div>
+									</div>
+								</li>
+								<div class="dropdown-divider"></div>
+
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="/logout"><i
+									class="fa fa-power-off"></i> Logout</a>
+							</ul> <!-- /.dropdown-user --></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+		<div class="sidebar">
+			<div class="scrollbar-inner sidebar-wrapper">
+				<div class="user">
+					<div class="photo">
+						<img src="assets/img/profile.jpg">
+					</div>
+					<div class="info">
+						<a class="" data-toggle="collapse" href="#collapseExample"
+							aria-expanded="true"> <span th:text="${session.username}">
+								Hizrian <span class="user-level" th:text="Administrator">Administrator</span>
+								<span class="caret"></span></a>
+						<div class="clearfix"></div>
+
+						<div class="collapse in" id="collapseExample" aria-expanded="true"
+							style="">
+							<ul class="nav">
+								<li><a href="#profile"> <span class="link-collapse">My
+											Profile</span>
+								</a></li>
+								<li><a href="#edit"> <span class="link-collapse">Edit
+											Profile</span>
+								</a></li>
+								<li><a href="#settings"> <span class="link-collapse">Settings</span>
+								</a></li>
+								<li class="nav-item"><a href="#"> <i
+										class="la la-coins"></i>
+										<p>Danh sách nạp xu</p> <span class="badge badge-danger"></span>
+								</a></li>
+
+								<li class="nav-item"><a href="/manager-buy-phim"> <i
+										class="la la-film"></i>
+										<p>Danh sách mua phim</p> <span class="badge badge-danger"></span>
+								</a></li>
+
+								<li class="nav-item"><a href="/manager-category"> <i
+										class="la la la-cogs"></i>
+										<p>Quản lí loại phim</p> <span class="badge badge-danger"></span>
+								</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<ul class="nav">
+					<li class="nav-item active"><a href="/index/admin"> <i
+							class="la la-dashboard"></i>
+							<p>Thống kê</p> <span class="badge badge-count"></span>
+					</a></li>
+					<li class="nav-item"><a href="/manager-user"> <i
+							class="la la-table"></i>
+							<p>Quản lí người dùng</p> <span class="badge badge-count"></span>
+					</a></li>
+
+					<li class="nav-item"><a href="/manager-video"> <i
+							class="la la-th"></i>
+							<p>Quản lí phim</p> <span class="badge badge-count"></span>
+					</a></li>
+					<li class="nav-item"><a href="/manager-coins"> <i
+							class="la la-money"></i>
+							<p>Quản lí xu</p> <span class="badge badge-success"></span>
+					</a></li>
+
+					<li class="nav-item"><a href="/manager-payment"> <i
+							class="la la-credit-card"></i>
+							<p>Quản lí thanh toán</p> <span class="badge badge-danger"></span>
+					</a></li>
+					<li class="nav-item"><a href="/list-load-coins"> <i
+							class="la la-coins"></i>
+							<p>Danh sách nạp xu</p> <span class="badge badge-danger"></span>
+					</a></li>
+
+					<li class="nav-item"><a href="/manager-buy-phim"> <i
+							class="la la-film"></i>
+							<p>Danh sách mua phim</p> <span class="badge badge-danger"></span>
+					</a></li>
+
+					<li class="nav-item"><a href="/manager-category"> <i
+							class="la la la-cogs"></i>
+							<p>Quản lí loại phim</p> <span class="badge badge-danger"></span>
+					</a></li>
+					<li class="nav-item"><a href="/manager-episode"> <i
+							class="la la la-cogs"></i>
+							<p>Quản lí tập phim</p> <span class="badge badge-danger"></span>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="main-panel">
+			<div class="content">
+				<div class="container-fluid">
+					<h4 class="page-title">Thêm phim</h4>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-title">Quản lí phim</div>
+								</div>
+								<div class="card-body">
+									<div class="container-fluid centered-form">
+										<div class="col-md-12">
+											<form th:action="@{/update-episode}" method="POST"
+												enctype="multipart/form-data" th:object="${episode}">
+												<!-- Form fields -->
+
+												<div class="form-row">
+
+													<div class="form-group col-md-6">
+														<label for="firm">Chọn bộ phim</label> <select name="firm"
+															class="form-control" id="category" th:field="*{firm}">
+															<option value="" disabled selected>Chọn bộ phim
+																phim</option>
+															<option th:each="firm : ${firms}" th:value="${firm.id}"
+																th:text="${firm.name_firm}"></option>
+														</select>
+														<div class="text-danger"
+															th:if="${#fields.hasErrors('firm')}" th:errors="*{firm}"></div>
+													</div>
+												</div>
+												<div class="form-row">
+													<div class="form-group col-md-6">
+														<label for="name_episode">Tên tập</label> <input
+															type="text" name="name_episode" class="form-control"
+															id="name_episode" th:field="*{name_episode}">
+														<div class="text-danger"
+															th:if="${#fields.hasErrors('name_episode')}"
+															th:errors="*{name_episode}"></div>
+														<div id="name_episode-error" class="text-danger"></div>
+													</div>
+
+
+												</div>
+												<div class="form-group">
+													<label for="link_video">Video hiện tại:</label>
+													<div>
+														<video
+															th:src="@{/loadVideo(videoName=${episode.link_video})}"
+															controls style="max-width: 400px;"> Your browser
+															does not support the video tag.
+														</video>
+													</div>
+													<label for="link_video">Chọn video mới </label> <input
+														type="file" name="link_video" class="form-control-file"
+														id="link_video" accept="video/*">
+													<div class="text-danger"></div>
+												</div>
+
+
+
+
+												<!-- Error and success messages -->
+												<div th:if="${errorMessage}" class="alert alert-danger"
+													th:text="${errorMessage}"></div>
+												<div th:if="${session.successMessage}"
+													class="alert alert-success"
+													th:text="${session.successMessage}"></div>
+
+												<!-- Button Section -->
+												<div class="card-action d-flex justify-content-center">
+													<button type="submit" class="btn btn-success mr-2">Cập
+														nhập</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+		<!-- JavaScript files -->
+		<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+		<script
+			src="assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+		<script src="assets/js/core/popper.min.js"></script>
+		<script src="assets/js/core/bootstrap.min.js"></script>
+		<script src="assets/js/plugin/chartist/chartist.min.js"></script>
+		<script
+			src="assets/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js"></script>
+		<script
+			src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+		<script
+			src="assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+		<script src="assets/js/plugin/jquery-mapael/jquery.mapael.min.js"></script>
+		<script
+			src="assets/js/plugin/jquery-mapael/maps/world_countries.min.js"></script>
+		<script src="assets/js/plugin/chart-circle/circles.min.js"></script>
+		<script
+			src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+		<script src="assets/js/ready.min.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+		<script type="text/javascript">
+			$(document)
+					.ready(
+							function() {
+								// Form validation on submit
+								$('form')
+										.on(
+												'submit',
+												function(event) {
+													event.preventDefault(); // Prevent default form submit
+
+													var isValid = true;
+
+													// Perform input validation on all required fields
+													$('input')
+															.each(
+																	function() {
+																		var input = $(this);
+
+																		// Skip validation for the file input if it is empty
+																		if (input
+																				.attr('type') === 'file'
+																				&& input
+																						.val()
+																						.trim() === '') {
+																			return true; // Continue to the next iteration without validation
+																		}
+
+																		// Validate other fields as usual
+																		if (input
+																				.val()
+																				.trim() === '') {
+																			isValid = false;
+																			input
+																					.addClass('is-invalid');
+																			input
+																					.siblings(
+																							'.text-danger')
+																					.text(
+																							'Trường này không được để trống');
+																		} else {
+																			input
+																					.removeClass('is-invalid');
+																			input
+																					.siblings(
+																							'.text-danger')
+																					.text(
+																							'');
+																		}
+																	});
+
+													// If the form is valid, submit it
+													if (isValid) {
+														this.submit();
+													}
+												});
+							});
+
+			// Hide alert messages after 2 seconds
+			document.addEventListener('DOMContentLoaded', function() {
+				var alert = document.querySelector('.alert');
+				if (alert) {
+					setTimeout(function() {
+						fetch('/clear-success-message', {
+							method : 'POST'
+						});
+						alert.style.opacity = '0';
+						setTimeout(function() {
+							alert.style.display = 'none';
+						}, 500);
+					}, 2000);
+				}
+			});
+		</script>
+</body>
+</html>

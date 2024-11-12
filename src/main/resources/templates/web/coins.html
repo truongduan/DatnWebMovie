@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Anime Template">
+<meta name="keywords" content="Anime, unica, creative, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Anime | Template</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<!-- Google Font -->
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link
+	href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
+	rel="stylesheet">
+
+<!-- Css Styles -->
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="css/plyr.css" type="text/css">
+<link rel="stylesheet" href="css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<style>
+.icon-green {
+	color: #28a745; /* Màu xanh lá cây */
+}
+
+.icon-yellow {
+	color: #ffd700; /* Màu vàng */
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.footer {
+	background: #070720;
+	padding-top: 60px;
+	padding-bottom: 40px;
+	margin-top: auto; /* Pushes footer to the bottom */
+
+	color: white; /* Change footer text color */
+	padding: 20px 0; /* Add padding to the footer */
+}
+</style>
+</head>
+
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<!-- Header Section Begin -->
+	<header class="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2">
+					<div class="header__logo">
+						<a href="./index.html"> <img src="img/logo.png" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<div class="header__nav">
+						<nav class="header__menu mobile-menu">
+							<ul>
+								<li class=""><a href="/home">Trang chủ</a></li>
+								<li><a>Thể loại <span class="arrow_carrot-down"></span></a>
+									<ul class="dropdown">
+										<li th:each="category : ${categoryList}"><a
+											th:href="@{/firms-by-category/{id}(id=${category.id})}"
+											th:text="${category.category}"></a></li>
+									</ul></li>
+								<li><a href="/blog">Blog</a></li>
+
+
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<div class="col-lg-2">
+					<div class="header__right">
+
+
+
+
+						<th:block th:if="${session.status}">
+							<a href="/logout"> <i class="fas fa-sign-out-alt"></i>
+
+							</a>
+							<a href="/history-firm"><i class="fa fa-history"></i> </a>
+						</th:block>
+
+						<!-- Show the login icon if the user is not logged in -->
+						<th:block th:unless="${session.status}">
+							<a href="/login"><span class="icon_profile"></span></a>
+						</th:block>
+						<th:block th:if="${session.status}">
+							<div class="coin-icon">
+								<div class="coins">
+									<i class="fa fa-coins coin-1"></i>
+								</div>
+								<span class="coin-count" th:text="${session.coins}">0</span> <span
+									class="coin-plus-container"><a href="/qr-coin"> <i
+										class="fa fa-plus coin-plus"></i>
+								</a></span>
+							</div>
+						</th:block>
+
+					</div>
+
+				</div>
+			</div>
+			<div id="mobile-menu-wrap"></div>
+		</div>
+	</header>
+	<!-- Header End -->
+
+	<!-- Breadcrumb Begin -->
+	<div class="breadcrumb-option">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="breadcrumb__links">
+						<th:block th:if="${session.islogin}">
+							<a href="/home"><i class="fa fa-home"></i> Trang chủ</a>
+						</th:block>
+						<th:block th:unless="${session.islogin}">
+							<a href="/"><i class="fa fa-home"></i> Trang chủ</a>
+						</th:block>
+						<a href="">Nạp xu</a> <span></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Breadcrumb End -->
+
+	<!-- Product Section Begin -->
+	<section class="product-page spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="product__page__content">
+						<div class="product__page__title">
+							<div class="row">
+								<div class="col-lg-8 col-md-8 col-sm-6">
+									<div class="section-title">
+										<h4>Nạp xu</h4>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-4 col-md-6 col-sm-6"
+								th:each="coin : ${qrCoinsList}">
+								<div class="product__item">
+									<div class="product__item__pic set-bg"
+										th:attr="data-setbg=@{'/loadImage?imageName=' + ${coin.url_coins}}">
+										<!-- You can add additional attributes here if needed -->
+									</div>
+									<div class="product__item__text">
+										<ul>
+											<li><i class="fas fa-money-bill-wave icon-green"></i>
+												Tiền: <span th:text="${coin.money}"></span></li>
+											<li>Tặng: <span th:text="${coin.discountPercentage}"></span>
+												<i class="fas fa-coins icon-yellow"></i>
+											</li>
+										</ul>
+
+										<button type="button" class="btn btn-primary open-modal-btn"
+											data-toggle="modal" data-target="#exampleModal"
+											th:data-image-url="@{'/loadImage?imageName=' + ${coin.url_coins}}"
+											th:data-coin-id="${coin.id}">Nạp xu</button>
+
+
+
+
+
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="product__pagination">
+							<a href="#" th:href="@{/qr-coin(page=${currentPage - 1})}"
+								th:if="${currentPage > 0}">«</a> <a href="#"
+								th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
+								th:href="@{/qr-coin(page=${pageNum})}" th:text="${pageNum + 1}"
+								th:classappend="${pageNum == currentPage ? 'current-page' : ''}"></a>
+							<a href="#" th:href="@{/qr-coin(page=${currentPage + 1})}"
+								th:if="${currentPage < totalPages - 1}">»</a>
+						</div>
+	</section>
+	<footer class="footer">
+		<div class="page-up">
+			<a href="#" id="scrollToTopButton"><span class="arrow_carrot-up"></span></a>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="footer__logo">
+						<a href="./index.html"><img src="img/logo.png" alt=""></a>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="footer__nav">
+						<ul>
+							<li><a href="/home">Trang chủ</a></li>
+							<li><a href="#">Thể loại</a></li>
+							<li><a href="/blog">Blog</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<p style="font-size: 18px; color: #fff;">Liên hệ : 0763603242</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<div class="search-model">
+		<div class="h-100 d-flex align-items-center justify-content-center">
+			<div class="search-close-switch">
+				<i class="icon_close"></i>
+			</div>
+			<form class="search-model-form">
+				<input type="text" id="search-input" placeholder="Search here.....">
+			</form>
+		</div>
+	</div>
+	<!-- Search model end -->
+	<!-- Modal -->
+	<!-- Modal Structure -->
+	<!-- Modal Structure -->
+	<!-- Modal Structure -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Thanh toán</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<!-- This div will be used for displaying the image as background -->
+					<div id="modal-image" class="product__item__pic set-bg"
+						style="background-size: cover; background-position: center; height: 300px;">
+						<!-- You can add additional content or styling if needed -->
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a href="#" onclick="completePayment()">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Hoàn tất</button>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="js/jquery-3.3.1.min.js"></script>
+
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+							$('.open-modal-btn')
+									.on(
+											'click',
+											function() {
+												// Set the background image in the modal
+												var imageUrl = $(this).data(
+														'image-url');
+												if (imageUrl) {
+													$('#modal-image').css(
+															'background-image',
+															'url(' + imageUrl
+																	+ ')');
+												} else {
+													console
+															.error("Image URL is not defined.");
+												}
+
+												// Get coinId from the button's data attribute
+												var coinId = $(this).data(
+														'coin-id');
+
+												// Send the coinId to the Spring Boot controller via AJAX
+												$
+														.ajax({
+															url : '/save-coin-id',
+															type : 'POST',
+															data : {
+																coinId : coinId
+															},
+															success : function(
+																	response) {
+
+															},
+															error : function(
+																	xhr,
+																	status,
+																	error) {
+																console
+																		.error(
+																				'Error saving Coin ID to session:',
+																				error);
+															}
+														});
+											});
+						});
+	</script>
+
+
+
+
+	<!-- Js Plugins -->
+
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/player.js"></script>
+	<script src="js/jquery.nice-select.min.js"></script>
+	<script src="js/mixitup.min.js"></script>
+	<script src="js/jquery.slicknav.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/main.js"></script>
+	<script>
+		function completePayment() {
+			// You may want to perform additional checks or actions here
+			window.location.href = '/payment-success';
+		}
+	</script>
+
+
+</body>
+
+</html>

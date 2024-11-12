@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Anime Template">
+<meta name="keywords" content="Anime, unica, creative, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Anime | Template</title>
+
+<!-- Google Font -->
+<link
+	th:href="@{https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap}"
+	rel="stylesheet">
+<link
+	th:href="@{https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap}"
+	rel="stylesheet">
+
+<!-- Font Awesome -->
+<link
+	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css}"
+	rel="stylesheet">
+
+<!-- Css Styles -->
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"
+	type="text/css">
+<link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"
+	type="text/css">
+<link th:href="@{/css/elegant-icons.css}" rel="stylesheet"
+	type="text/css">
+<link th:href="@{/css/plyr.css}" rel="stylesheet" type="text/css">
+<link th:href="@{/css/nice-select.css}" rel="stylesheet" type="text/css">
+<link th:href="@{/css/owl.carousel.min.css}" rel="stylesheet"
+	type="text/css">
+<link th:href="@{/css/slicknav.min.css}" rel="stylesheet"
+	type="text/css">
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+<link rel="stylesheet"
+	href="@{https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.13/css/froala_editor.pkgd.min.css}">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.13/js/froala_editor.pkgd.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<style type="text/css">
+.editor-toolbar {
+	display: none;
+}
+
+.editor-statusbar {
+	display: none;
+}
+
+.CodeMirror {
+	pointer-events: none;
+}
+</style>
+</head>
+
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<!-- Header Section Begin -->
+	<header class="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2">
+					<div class="header__logo">
+						<a href="./index.html"> <img src="img/logo.png" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<div class="header__nav">
+						<nav class="header__menu mobile-menu">
+							<ul>
+								<ul>
+									<li th:if="${session.status}"><a href="/home">Trang
+											chủ</a></li>
+									<li th:unless="${session.status}"><a href="/">Trang
+											chủ</a></li>
+
+									<li><a>Thể loại <span class="arrow_carrot-down"></span></a>
+										<ul class="dropdown">
+											<li th:each="category : ${categoryList}"><a
+												th:href="@{/firms-by-category/{id}(id=${category.id})}"
+												th:text="${category.category}"></a></li>
+										</ul></li>
+									<li><a href="/blog">Blog</a></li>
+
+
+								</ul>
+
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<div class="col-lg-2">
+					<div class="header__right">
+						<th:block th:if="${session.status}">
+							<a href="/logout"> <i class="fas fa-sign-out-alt"></i>
+							</a>
+							<a href="/history-firm"><i class="fa fa-history"></i> </a>
+						</th:block>
+
+						<!-- Show the login icon if the user is not logged in -->
+						<th:block th:unless="${session.status}">
+							<a href="/login"><span class="icon_profile"></span></a>
+						</th:block>
+						<th:block th:if="${session.status}">
+							<div class="coin-icon">
+								<div class="coins">
+									<i class="fa fa-coins coin-1"></i>
+								</div>
+								<span class="coin-count" th:text="${session.coins}">0</span> <span
+									class="coin-plus-container"><a href="/qr-coin"> <i
+										class="fa fa-plus coin-plus"></i>
+								</a></span>
+							</div>
+						</th:block>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="mobile-menu-wrap"></div>
+		</div>
+	</header>
+	<!-- Header End -->
+
+	<!-- Breadcrumb Begin -->
+	<div class="breadcrumb-option">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="breadcrumb__links">
+						<th:block th:if="${session.islogin}">
+							<a href="/home"><i class="fa fa-home"></i> Trang chủ</a>
+						</th:block>
+						<th:block th:unless="${session.islogin}">
+							<a href="/"><i class="fa fa-home"></i> Trang chủ</a>
+						</th:block>
+
+						<a href="#">Video</a> <a href="#"><span
+							th:text="${firm.tittle_firm}"></span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Breadcrumb End -->
+
+	<!-- Anime Section Begin -->
+	<section class="anime-details spad">
+		<div class="container">
+		
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="anime__video__player">
+						<video id="player" playsinline controls
+							th:data-poster="@{'/loadMediaImage?imageName=' + ${firm.img_firm}}">
+
+							<source
+								th:src="@{/loadVideo(videoName=${firm.link_video_traller})}"
+								type="video/mp4" />
+						</video>
+						<!-- Captions are optional -->
+						<track kind="captions" label="English captions" src="#"
+							srclang="en" default />
+						</video>
+						<div></div>
+						<div></div>
+						<div class="mt-2"></div>
+						<p th:text="'Trailer : ' + ${firm.tittle_firm}" class="text-white"
+							style="font-size: 18px;"></p>
+
+
+
+					</div>
+					<div class="col-md-12">
+						<form>
+
+							<div class="form-group">
+								<label for="describe" style="color: aliceblue;">Mô tả</label>
+								<textarea th:text="${firm.describe}" id="simplemde-editor"
+									name="describe" class="form-control" readonly></textarea>
+
+
+							</div>
+
+
+
+
+
+
+
+						</form>
+
+					</div>
+
+				</div>
+
+			</div>
+	</section>
+	<!-- Anime Section End -->
+
+	<!-- Footer Section Begin -->
+	<footer class="footer">
+		<div class="page-up">
+			<a href="#" id="scrollToTopButton"><span class="arrow_carrot-up"></span></a>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="footer__logo">
+						<a href="./index.html"><img src="img/logo.png" alt=""></a>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="footer__nav">
+						<ul>
+							<ul>
+								<li th:if="${session.status}"><a href="/home">Trang chủ</a></li>
+								<li th:unless="${session.status}"><a href="/">Trang chủ</a></li>
+
+								<li><a href="#">Thể loại</a></li>
+								<li class="active"><a href="/blog">Blog</a></li>
+
+
+							</ul>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<p style="font-size: 18px; color: #fff;">
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						Liên hệ :0763603242
+					</p>
+
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- Footer Section End -->
+
+	<!-- Search model Begin -->
+	<div class="search-model">
+		<div class="h-100 d-flex align-items-center justify-content-center">
+			<div class="search-close-switch">
+				<i class="icon_close"></i>
+			</div>
+			<form class="search-model-form">
+				<input type="text" id="search-input" placeholder="Search here.....">
+			</form>
+		</div>
+	</div>
+	<!-- Search model end -->
+
+	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/player.js}"></script>
+	<script th:src="@{/js/jquery.nice-select.min.js}"></script>
+	<script th:src="@{/js/mixitup.min.js}"></script>
+	<script th:src="@{/js/jquery.slicknav.js}"></script>
+	<script th:src="@{/js/owl.carousel.min.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+
+
+
+	<script
+		th:src="@{https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js}"></script>
+	<script type="text/javascript">
+		document.getElementById('simplemde-editor').readOnly = true;
+	</script>
+	<script>
+		$(document).ready(function() {
+			var simplemde = new SimpleMDE({
+				element : document.getElementById("simplemde-editor"),
+				toolbar : false
+			// Hide the toolbar
+			});
+
+			// Disable editor interaction
+			simplemde.codemirror.setOption("readOnly", true);
+
+			// Alternatively, you can use an event listener to prevent input
+			simplemde.codemirror.on('beforeChange', function(cm, change) {
+				change.cancel(); // Cancel any changes
+			});
+
+			// Validation function (still useful for other cases)
+			function validateSimpleMDE() {
+				var describe = simplemde.value().trim();
+				var isValid = true;
+
+				$('#describe-error').text('');
+
+				if (describe === "") {
+					isValid = false;
+					$('#describe-error').text('Mô tả không được để trống');
+				}
+
+				return isValid;
+			}
+
+			$('#myForm').on('submit', function(event) {
+				var isValid = true;
+
+				if (!validateSimpleMDE()) {
+					isValid = false;
+				}
+
+				if (!isValid) {
+					event.preventDefault();
+				}
+			});
+		});
+	</script>
+
+
+
+
+</body>
+
+</html>

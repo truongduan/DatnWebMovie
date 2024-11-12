@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Anime Template">
+<meta name="keywords" content="Anime, unica, creative, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<title>Anime | Template</title>
+
+<!-- Google Font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+<!-- Css Styles -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+	type="text/css">
+<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}"
+	type="text/css">
+<link rel="stylesheet" th:href="@{/css/elegant-icons.css}"
+	type="text/css">
+<link rel="stylesheet" th:href="@{/css/plyr.css}" type="text/css">
+<link rel="stylesheet" th:href="@{/css/nice-select.css}" type="text/css">
+<link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}"
+	type="text/css">
+<link rel="stylesheet" th:href="@{/css/slicknav.min.css}"
+	type="text/css">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+
+<style type="text/css">
+i.fa.fa-coins {
+	color: yellow;
+}
+
+i.fa.fa-ticket {
+	color: coral;
+}
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%; /* Could be more or less, depending on screen size */
+	max-width: 500px; /* Optional: Limits the maximum width */
+}
+
+/* The Close Button */
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 24px; /* Smaller size for the close button */
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal-footer {
+	display: flex;
+	justify-content: center; /* Căn giữa các nút */
+	gap: 10px; /* Khoảng cách giữa các nút */
+}
+/* Button Styles */
+button {
+	margin: 3px; /* Reduced margin */
+	padding: 8px 16px; /* Reduced padding */
+	border: none;
+	background-color: #4CAF50; /* Green */
+	color: white;
+	font-size: 14px; /* Smaller font size */
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #45a049;
+}
+</style>
+</head>
+
+<body>
+
+	<!-- Header Section Begin -->
+	<header class="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2">
+					<div class="header__logo">
+						<a href="./index.html"> <img src="img/logo.png" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<div class="header__nav">
+						<nav class="header__menu mobile-menu">
+							<ul>
+								<li class="" th:if="${session.status}"><a href="/home">Trang
+										chủ</a></li>
+								<li class="" th:unless="${session.status}"><a href="/">Trang
+										chủ</a></li>
+
+								<li><a>Thể loại <span class="arrow_carrot-down"></span></a>
+									<ul class="dropdown">
+										<li th:each="category : ${categoryList}"><a
+											th:href="@{/firms-by-category/{id}(id=${category.id})}"
+											th:text="${category.category}"></a></li>
+									</ul></li>
+								<li><a href="/blog">Blog</a></li>
+
+
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<div class="col-lg-2">
+					<div class="header__right">
+
+
+
+
+						<th:block th:if="${session.status}">
+							<a href="/profile"><i class="fas fa-user"></i> </a>
+							<a href="/logout"><i class="fas fa-sign-out-alt"></i> </a>
+
+							<a href="/history-firm"><i class="fa fa-history"></i> </a>
+						</th:block>
+
+						<!-- Show the login icon if the user is not logged in -->
+						<th:block th:unless="${session.status}">
+							<a href="/login"><span class="icon_profile"></span></a>
+						</th:block>
+						<th:block th:if="${session.status}">
+							<div class="coin-icon">
+								<div class="coins">
+									<i class="fa fa-coins coin-1"></i>
+								</div>
+								<span class="coin-count" th:text="${session.coins}">0</span> <span
+									class="coin-plus-container"><a href="/qr-coin"> <i
+										class="fa fa-plus coin-plus"></i>
+								</a></span>
+							</div>
+						</th:block>
+
+					</div>
+				</div>
+			</div>
+			<div id="mobile-menu-wrap"></div>
+		</div>
+	</header>
+	<!-- Header End -->
+	<!-- Breadcrumb Begin -->
+	<div class="breadcrumb-option">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="breadcrumb__links">
+						<th:block th:if="${session.islogin}">
+							<a href="/home"><i class="fa fa-home"></i> Trang chủ</a>
+						</th:block>
+						<th:block th:unless="${session.islogin}">
+							<a href="/"><i class="fa fa-home"></i> Trang chủ</a>
+						</th:block>
+						<a href="">Thông tin cá nhân</a> <span></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Breadcrumb End -->
+	<section class="product-page spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="product__page__content">
+						<div class="product__page__title">
+							<h4 style="color: white;">Thông tin cá nhân</h4>
+						</div>
+
+						<!-- Profile Form -->
+						<div class="container rounded bg-white mt-5 mb-5">
+							<form th:action="@{/update-profile}" th:object="${user}"
+								method="post">
+
+								<div class="row">
+									<!-- User Info Column -->
+									<div class="col-md-4 border-end">
+										<div
+											class="d-flex flex-column align-items-center text-center p-3 py-5">
+											<img
+												src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/27a5ebeb-b941-40ff-81ca-4bc839d75d27/dg2pju2-c6bd3ecf-116c-4047-943b-89cb6e18d985.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzI3YTVlYmViLWI5NDEtNDBmZi04MWNhLTRiYzgzOWQ3NWQyN1wvZGcycGp1Mi1jNmJkM2VjZi0xMTZjLTQwNDctOTQzYi04OWNiNmUxOGQ5ODUuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.Yu3g-rojU1pRXdeT2wXxkGgPzm49UYqc6z4SHJ_th1w"
+												class="rounded-circle profile-img mt-5" alt="Profile Image">
+											<span class="font-weight-bold mt-3" th:text="${user.name}">Tên
+												đầy đủ</span> <span class="text-black-50" th:text="${user.email}">Email
+												của bạn</span>
+										</div>
+									</div>
+
+									<!-- Profile Settings Column -->
+									<div class="col-md-8">
+										<div class="p-3 py-5">
+											<h4 class="mb-3">Thông tin cá nhân</h4>
+
+											<input type="hidden" name="userId" th:value="${user.id}">
+											<div class="form-group">
+												<label for="name">ID</label> <input type="text"
+													class="form-control" id="id" name="id" th:field="*{id}"
+													placeholder="ID" required readonly>
+											</div>
+											<div class="form-group">
+												<label for="name">Tên</label> <input type="text"
+													class="form-control" id="name" name="name"
+													th:field="*{name}" placeholder="Tên đầy đủ" required>
+											</div>
+
+
+											<div class="form-group mt-3">
+												<label for="email">Email</label> <input type="email"
+													class="form-control" id="email" name="email"
+													th:field="*{email}" placeholder="Email của bạn" readonly>
+											</div>
+
+											<label for="password">Mật khẩu</label> <input type="password"
+												class="form-control" id="password" name="password"
+												th:field="*{password}" placeholder="******" disabled>
+
+											<div class="form-group mt-3"></div>
+											<div class="alert alert-primary" role="alert" th:if="${message}"  th:text="${message}"></div>
+											<div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}"></div>
+
+											<div
+												class="form-group mt-4 text-center d-flex justify-content-center gap-3">
+												<button type="button" class="btn btn-secondary"
+													onclick="openModal()">Đổi mật khẩu</button>
+												<button type="submit" class="btn btn-primary profile-button">Lưu
+													thông tin</button>
+											</div>
+
+
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<!-- End of Profile Form -->
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- Password Change Modal -->
+	<div id="changePasswordModal" class="modal">
+		<div class="modal-content">
+			<span class="close" onclick="closeModal()">&times;</span>
+			<h4>Đổi mật khẩu</h4>
+			<form th:action="@{/change-password}" method="post">
+				<input type="hidden" name="userId" th:value="${user.id}">
+				<div class="form-group mt-3">
+
+					<label for="currentPassword">Mật khẩu hiện tại</label> <input
+						type="password" class="form-control" id="currentPassword"
+						name="currentPassword" placeholder="Nhập mật khẩu hiện tại"
+						required>
+				</div>
+				<div class="form-group mt-3">
+					<label for="newPassword">Mật khẩu mới</label> <input
+						type="password" class="form-control" id="newPassword"
+						name="newPassword" placeholder="Nhập mật khẩu mới" required>
+				</div>
+				<div class="form-group mt-3">
+					<label for="confirmPassword">Xác nhận mật khẩu</label> <input
+						type="password" class="form-control" id="confirmPassword"
+						name="confirmPassword" placeholder="Xác nhận mật khẩu mới"
+						required>
+				</div>
+				<div class="form-group mt-4 text-center">
+					<button type="submit" class="btn btn-primary">Xác nhận
+						thay đổi</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+
+
+	<!-- Footer Section Begin -->
+	<footer class="footer">
+		<div class="page-up">
+			<a href="#" id="scrollToTopButton"><span class="arrow_carrot-up"></span></a>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="footer__logo">
+						<a href="./index.html"><img src="img/logo.png" alt=""></a>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="footer__nav">
+						<ul>
+							<li class="" th:if="${session.status}"><a href="/home">Trang
+									chủ</a></li>
+							<li class="" th:unless="${session.status}"><a href="/">Trang
+									chủ</a></li>
+							<li><a href="#">Thể loại</a></li>
+							<li><a href="/blog">Blog</a></li>
+
+
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<p style="font-size: 18px; color: #fff;">
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						Liên hệ : 0763603242
+					</p>
+
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- Footer Section End -->
+
+	<!-- Bootstrap JS -->
+	<!-- Modal Styles and Scripts -->
+	<style>
+/* The Modal (background) */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+	max-width: 400px;
+}
+
+/* The Close Button */
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+</style>
+
+	<script>
+		// Open the modal
+		function openModal() {
+			document.getElementById("changePasswordModal").style.display = "block";
+		}
+
+		// Close the modal
+		function closeModal() {
+			document.getElementById("changePasswordModal").style.display = "none";
+		}
+
+		// Close the modal when clicking outside of it
+		window.onclick = function(event) {
+			const modal = document.getElementById("changePasswordModal");
+			if (event.target === modal) {
+				modal.style.display = "none";
+			}
+		}
+	</script>
+
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

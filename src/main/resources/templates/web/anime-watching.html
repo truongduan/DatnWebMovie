@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Anime Template">
+<meta name="keywords" content="Anime, unica, creative, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<title>Anime | Template</title>
+
+<!-- Google Font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<!-- Css Styles -->
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="css/plyr.css" type="text/css">
+<link rel="stylesheet" href="css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.13/css/froala_editor.pkgd.min.css"
+	rel="stylesheet" />
+<style type="text/css">
+.editor-toolbar {
+	display: none;
+}
+
+.editor-statusbar {
+	display: none;
+}
+</style>
+<!-- Include Froala Editor JS -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.13/js/froala_editor.pkgd.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+</head>
+
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<!-- Header Section Begin -->
+	<header class="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2">
+					<div class="header__logo">
+						<a href="./index.html"> <img src="img/logo.png" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<div class="header__nav">
+						<nav class="header__menu mobile-menu">
+							<ul>
+								<li class="active"><a href="/home">Trang chủ</a></li>
+								<li><a>Thể loại <span class="arrow_carrot-down"></span></a>
+									<ul class="dropdown">
+										<li th:each="category : ${categoryList}"><a
+											th:href="@{/firms-by-category/{id}(id=${category.id})}"
+											th:text="${category.category}"></a></li>
+									</ul></li>
+								<li><a href="/blog">Blog</a></li>
+
+
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<div class="col-lg-2">
+					<div class="header__right">
+						<th:block th:if="${session.status}">
+							<a href="/logout"> <i class="fas fa-sign-out-alt"></i>
+							</a>
+							<a href="/history-firm"><i class="fa fa-history"></i> </a>
+						</th:block>
+
+						<!-- Show the login icon if the user is not logged in -->
+						<th:block th:unless="${session.status}">
+							<a href="/login"><span class="icon_profile"></span></a>
+						</th:block>
+						<th:block th:if="${session.status}">
+							<div class="coin-icon">
+								<div class="coins">
+									<i class="fa fa-coins coin-1"></i>
+								</div>
+								<span class="coin-count" th:text="${session.coins}">0</span> <span
+									class="coin-plus-container"><a href="/qr-coin"> <i
+										class="fa fa-plus coin-plus"></i>
+								</a></span>
+							</div>
+						</th:block>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="mobile-menu-wrap"></div>
+		</div>
+	</header>
+	<!-- Header End -->
+
+	<!-- Breadcrumb Begin -->
+	<div class="breadcrumb-option">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="breadcrumb__links">
+						<a href="/home"><i class="fa fa-home"></i> Trang chủ</a> <a
+							href="#">Video</a> <a href="#"><span
+							th:text="${firm.name_firm}"></span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Breadcrumb End -->
+
+	<!-- Anime Section Begin -->
+	<section class="anime-details spad">
+		<div class="container">
+			<div class="row mb-4">
+				<div class="col-lg-3">
+					<div class="anime__details__pic set-bg"
+						th:attr="data-setbg=@{'/loadImage?imageName=' + ${firm.img_link}}">
+					</div>
+				</div>
+				<div class="col-lg-9">
+					<div class="anime__details__text">
+						<div class="anime__details__title">
+							<h3 th:text="${firm.name_firm}">Fate Stay Night: Unlimited
+								Blade</h3>
+
+						</div>
+
+						<div class="anime__details__widget">
+							<div class="row">
+								<div class="col-lg-6 col-md-6">
+									<ul>
+										<li class="d-flex align-items-center"><span class="me-2">Thể
+												loại :</span>
+											<p class="mb-0" th:text="${firm.category}"></p></li>
+
+										<li class="d-flex align-items-center"><span class="me-2">Số
+												tập :</span>
+											<p class="mb-0" th:if="${firm.episodeCount != null}"
+												th:text="${firm.episodeCount}">2</p>
+											<p class="mb-0" th:if="${firm.episodeCount == null}"
+												th:text="??">??</p>
+											<p class="mb-0 mx-1">/</p>
+											<p class="mb-0" th:text="${firm.total_episodes}">2</p></li>
+
+										<li class="d-flex align-items-center"><span class="me-2"
+											style="width: 100px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+												Tác giả </span>
+											<p class="mb-0"
+												style="width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+												th:text="${firm.author_firm}"></p></li>
+
+
+									</ul>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="anime__video__player" th:if="${isVideo == true}">
+						<video id="player" playsinline controls
+							th:data-poster="@{'/loadMediaImage?imageName=' + ${episode.firm.img_firm}}">
+
+							<source th:src="@{/loadVideo(videoName=${episode.link_video})}"
+								type="video/mp4" />
+						</video>
+						<!-- Captions are optional -->
+						<track kind="captions" label="English captions" src="#"
+							srclang="en" default />
+						</video>
+					</div>
+					<div class="anime__details__episodes text-center">
+						<!-- Căn giữa văn bản bên trong -->
+						<th:block th:if="${firms != null}">
+							<th:block th:each="f : ${firms}">
+								<div th:if="${f.status == true}"
+									class="d-flex justify-content-center">
+									<!-- Sử dụng d-flex và justify-content-center -->
+									<a th:href="@{'/click_movie_firm_episode/' + ${f.id}}"
+										th:text="${f.name_episode}">01</a>
+								</div>
+								<div th:if="${f.status == false}"
+									class="d-flex justify-content-center">
+									<!-- Sử dụng d-flex và justify-content-center -->
+									<a class="yellow-highlight" th:text="${f.name_episode}">01</a>
+								</div>
+							</th:block>
+						</th:block>
+					</div>
+
+
+
+				</div>
+
+			</div>
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="anime__details__review">
+						<div class="section-title">
+							<h5>Tất cả bình luận</h5>
+						</div>
+						<div id="commentsSection">
+							<div th:each="comment : ${comments}" class="anime__review__item">
+								<div class="anime__review__item__text">
+									<h6>
+										<span th:text="${comment.user.name}">User Name</span> - <span
+											th:text="${comment.formattedDate}"></span>
+									</h6>
+									<p th:text="${comment.comment}">Comment text</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="anime__details__form">
+						<div class="section-title">
+							<h5>Bình luận</h5>
+						</div>
+						<form id="commentForm">
+							<textarea name="comment" id="commentText"
+								placeholder="Your Comment"></textarea>
+							<input type="hidden" name="id_firm" id="firmId"
+								th:value="${firm.id}" />
+							<button type="submit">
+								<i class="fa fa-location-arrow"></i> Bình luận
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Anime Section End -->
+
+	<!-- Footer Section Begin -->
+	<footer class="footer">
+		<div class="page-up">
+			<a href="#" id="scrollToTopButton"><span class="arrow_carrot-up"></span></a>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="footer__logo">
+						<a href="./index.html"><img src="img/logo.png" alt=""></a>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="footer__nav">
+						<ul>
+
+
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<p style="font-size: 18px; color: #fff;">
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						Liên hệ : 0763603242
+					</p>
+
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- Footer Section End -->
+
+	<!-- Search model Begin -->
+	<div class="search-model">
+		<div class="h-100 d-flex align-items-center justify-content-center">
+			<div class="search-close-switch">
+				<i class="icon_close"></i>
+			</div>
+
+		</div>
+	</div>
+	<!-- Search model end -->
+
+	<!-- Js Plugins -->
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/player.js"></script>
+	<script src="js/jquery.nice-select.min.js"></script>
+	<script src="js/mixitup.min.js"></script>
+	<script src="js/jquery.slicknav.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/main.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			// Initialize SimpleMDE
+			var simplemde = new SimpleMDE({
+				element : document.getElementById("simplemde-editor")
+			});
+
+			// Function to validate SimpleMDE
+			function validateSimpleMDE() {
+				var describe = simplemde.value().trim();
+				var isValid = true;
+
+				// Clear previous errors
+				$('#describe-error').text('');
+
+				// Validate SimpleMDE field
+				if (describe === "") {
+					isValid = false;
+					$('#describe-error').text('Mô tả không được để trống');
+				}
+
+				return isValid;
+			}
+
+			// Attach validation to SimpleMDE on form submit
+			$('#myForm').on('submit', function(event) {
+				var isValid = true;
+
+				// Validate SimpleMDE field
+				if (!validateSimpleMDE()) {
+					isValid = false;
+				}
+
+				// Prevent form submission if invalid
+				if (!isValid) {
+					event.preventDefault(); // Prevent form submission if invalid
+				}
+			});
+		});
+	</script>
+	<script>
+	$(document).ready(function() {
+	    $("#commentForm").on("submit", function(e) {
+	        e.preventDefault(); // Prevent the default form submission
+
+	        var commentData = {
+	            comment: $("#commentText").val(),
+	            id_firm: $("#firmId").val()
+	        };
+
+	        $.ajax({
+	            url: '/submit-comment', // The URL to send the request to
+	            type: 'POST',
+	            data: commentData,
+	            success: function(response) {
+	                if(response.status === "success") {
+	                    $("#commentText").val(''); // Clear the textarea
+
+	                    // Append the new comment directly without reloading all comments
+	                    var newCommentHtml = `
+	                        <div class="anime__review__item">
+	                            <div class="anime__review__item__text">
+	                                <h6>${response.userName} - ${response.formattedDate}</h6>
+	                                <p>${response.commentText}</p>
+	                            </div>
+	                        </div>`;
+	                    $("#commentsSection").append(newCommentHtml);
+	                } else {
+	                    alert("Error: " + response.message);
+	                }
+	            },
+	            error: function(error) {
+	                console.error("Error submitting comment:", error);
+	            }
+	        });
+	    });
+
+	    function loadComments(id_firm) {
+	        $.ajax({
+	            url: '/comments', // The URL to fetch the comments
+	            type: 'GET',
+	            data: { id_firm: id_firm },
+	            success: function(comments) {
+	                var commentsHtml = "";
+	                comments.forEach(function(comment) {
+	                    commentsHtml += `
+	                        <div class="anime__review__item">
+	                            <div class="anime__review__item__text">
+	                                <h6>${comment.user.name} - ${comment.formattedDate}</h6>
+	                                <p>${comment.comment}</p>
+	                            </div>
+	                        </div>`;
+	                });
+	                $("#commentsSection").html(commentsHtml);
+	            },
+	            error: function(error) {
+	                console.error("Error loading comments:", error);
+	            }
+	        });
+	    }
+	});
+
+
+
+</script>
+
+</body>
+
+</html>
